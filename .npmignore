@@ -1,0 +1,8 @@
+# package directories
+.*
+**/tsconfig.json
+node_modules
+src
+test
+lib
+dist/test

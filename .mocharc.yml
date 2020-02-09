@@ -1,0 +1,11 @@
+bail: false
+check-leaks: true
+extension:
+  - ts
+fullTrace: true
+reporter: spec
+recursive: true
+require: "ts-node/register"
+spec:
+  - "./test/**/**.spec.ts"
+ui: bdd

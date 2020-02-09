@@ -1,0 +1,46 @@
+{
+  "name": "dynamodb-stream-router",
+  "version": "0.0.1",
+  "description": "Route stream messages emitted from dynamo",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "test:unit": "mocha",
+    "test:cover": "nyc --reporter=html --reporter=text mocha",
+    "test:eslint": "eslint src/ --ext .ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:pgcarter/dynamodb-stream-router.git"
+  },
+  "author": "bewdym8",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/pgcarter/dynamodb-stream-router#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:eslint && npm run test:unit"
+    }
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.8",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
+    "aws-lambda": "^1.0.5",
+    "aws-sdk": "^2.614.0",
+    "chai": "^4.2.0",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.1",
+    "mocha": "^7.0.1",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
