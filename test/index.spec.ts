@@ -1,12 +1,12 @@
 import { DynamoDBStreamEvent } from "aws-lambda";
 import { assert } from "chai";
 import {
+  matchedStreamHandlers,
   DynamoStreamItem,
   StreamEventName,
-  DynamoMessageRouteHandler,
-  StreamRouterRuleFn
-} from "../src/lib/types";
-import { matchedStreamHandlers } from "../src";
+  StreamRouterRuleFn,
+  DynamoMessageRouteHandler
+} from "../src";
 
 interface TestItem {
   cartId: string;

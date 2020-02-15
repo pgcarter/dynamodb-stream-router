@@ -38,5 +38,4 @@ jspm_packages
 
 .webpack
 lib/
-dist/
 .idea/

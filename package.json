@@ -2,8 +2,8 @@
   "name": "dynamodb-stream-router",
   "version": "0.0.3",
   "description": "Route stream messages emitted from dynamo",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && tsc",
@@ -47,6 +47,7 @@
     "typescript": "^3.7.5"
   },
   "files": [
-    "dist/src"
+    "lib/src/index.js",
+    "lib/src/index.d.ts"
   ]
 }
