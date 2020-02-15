@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-stream-router",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Route stream messages emitted from dynamo",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
