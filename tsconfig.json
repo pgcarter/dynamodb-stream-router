@@ -8,6 +8,7 @@
     "sourceMap": true,
     "declaration": true,
     "target": "es5",
+    "rootDir": "src",
     "outDir": "lib",
     "typeRoots": [
       "node_modules/@types"

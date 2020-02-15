@@ -3,7 +3,7 @@
 **/tsconfig.json
 node_modules
 src
-test
+scripts
 lib
-dist/test
+lib/test
 prettierrc.js

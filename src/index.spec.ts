@@ -6,7 +6,7 @@ import {
   StreamEventName,
   StreamRouterRuleFn,
   DynamoMessageRouteHandler
-} from "../src";
+} from "./index";
 
 interface TestItem {
   cartId: string;
