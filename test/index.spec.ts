@@ -6,7 +6,7 @@ import {
   DynamoMessageRouteHandler,
   StreamRouterRuleFn
 } from "../src/lib/types";
-import { fetchMatchedStreamHandlers } from "../src";
+import { matchedStreamHandlers } from "../src";
 
 interface TestItem {
   cartId: string;
@@ -85,7 +85,7 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.lengthOf(
@@ -106,7 +106,7 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule, matchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.lengthOf(
@@ -127,7 +127,7 @@ describe("dynamo stream message router", () => {
         rules: [nonMatchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.lengthOf(result, 0, "expected no handler for failing route rule");
@@ -138,7 +138,7 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule, nonMatchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.lengthOf(result, 0, "expected no handler for failing route rule");
@@ -149,7 +149,7 @@ describe("dynamo stream message router", () => {
         rules: []
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.lengthOf(
@@ -166,7 +166,7 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.lengthOf(result, 1, "expected 1 route handlers");
@@ -187,10 +187,9 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([
-        routeHandlers,
-        routeHandlers2
-      ])(gateCreatedEvent.Records);
+      const result = matchedStreamHandlers([routeHandlers, routeHandlers2])(
+        gateCreatedEvent.Records
+      );
       assert.lengthOf(result, 2, "expected 4 route handlers");
       assert.deepStrictEqual(result, [
         {
@@ -213,10 +212,9 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([
-        routeHandlers,
-        routeHandlers2
-      ])(gateCreatedEvent.Records);
+      const result = matchedStreamHandlers([routeHandlers, routeHandlers2])(
+        gateCreatedEvent.Records
+      );
       assert.lengthOf(result, 1, "expected 1 route handlers");
       assert.deepStrictEqual(result, [
         {
@@ -314,7 +312,7 @@ describe("dynamo stream message router", () => {
         rules: [matchingRouteRule]
       };
 
-      const result = fetchMatchedStreamHandlers([routeHandlers])(
+      const result = matchedStreamHandlers([routeHandlers])(
         gateCreatedEvent.Records
       );
       assert.deepStrictEqual(result, [
