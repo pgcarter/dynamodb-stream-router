@@ -7,20 +7,23 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && tsc",
-    "test:unit": "mocha",
+    "test": "mocha",
     "test:cover": "nyc --reporter=html --reporter=text mocha",
-    "test:eslint": "eslint src/ --ext .ts --fix"
+    "eslint": "eslint src/ --ext .ts --fix"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:pgcarter/dynamodb-stream-router.git"
   },
+  "bugs": {
+    "url": "https://github.com/pgcarter/dynamodb-stream-router/issues"
+  },
+  "homepage": "https://github.com/pgcarter/dynamodb-stream-router#readme",
   "author": "bewdym8",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/pgcarter/dynamodb-stream-router#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test:eslint && npm run test:unit"
+      "pre-commit": "npm run eslint && npm run test"
     }
   },
   "devDependencies": {
@@ -42,5 +45,8 @@
     "prettier": "^1.19.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
-  }
+  },
+  "files": [
+    "dist/src"
+  ]
 }
