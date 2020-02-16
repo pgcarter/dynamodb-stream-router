@@ -40,7 +40,7 @@ describe("dynamo stream message router", () => {
   const expectedRouteHandler2 = (_dynamoItem: DynamoStreamItem<TestItem>) => {
     return null;
   };
-  const gateCreatedEvent: DynamoDBStreamEvent = {
+  const cartCreatedEvent: DynamoDBStreamEvent = {
     Records: [
       {
         eventID: "687541e3494dc8de9ff8d1f64b69bba1",
@@ -86,7 +86,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(
         result,
@@ -107,7 +107,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(
         result,
@@ -128,7 +128,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(result, 0, "expected no handler for failing route rule");
     });
@@ -139,7 +139,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(result, 0, "expected no handler for failing route rule");
     });
@@ -150,7 +150,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(
         result,
@@ -167,7 +167,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(result, 1, "expected 1 route handlers");
       assert.deepStrictEqual(result, [
@@ -188,7 +188,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers, routeHandlers2])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(result, 2, "expected 4 route handlers");
       assert.deepStrictEqual(result, [
@@ -213,7 +213,7 @@ describe("dynamo stream message router", () => {
       };
 
       const result = matchedStreamHandlers([routeHandlers, routeHandlers2])(
-        gateCreatedEvent.Records
+        cartCreatedEvent.Records
       );
       assert.lengthOf(result, 1, "expected 1 route handlers");
       assert.deepStrictEqual(result, [
