@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-stream-router",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Route stream messages emitted from dynamo",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,7 +19,14 @@
     "url": "https://github.com/pgcarter/dynamodb-stream-router/issues"
   },
   "homepage": "https://github.com/pgcarter/dynamodb-stream-router#readme",
-  "keywords": ["dynamodb", "aws","dynamo", "lambda", "serverless", "typescript"],
+  "keywords": [
+    "dynamodb",
+    "aws",
+    "dynamo",
+    "lambda",
+    "serverless",
+    "typescript"
+  ],
   "author": "bewdym8",
   "license": "Apache-2.0",
   "husky": {
