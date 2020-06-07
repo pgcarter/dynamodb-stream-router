@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-stream-router",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Route stream messages emitted from dynamo",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
