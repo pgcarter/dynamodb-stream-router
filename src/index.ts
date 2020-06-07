@@ -41,10 +41,7 @@ export interface MatchedStreamHandler<T> {
 const matchedRulesPredicate = (dynamoStreamItem: DynamoStreamItem<unknown>) => (
   rules: StreamRouterRuleFn<unknown>[]
 ): boolean => {
-  return (
-    !!rules.length &&
-    rules.find((rule) => !rule(dynamoStreamItem)) === undefined
-  );
+  return !!rules.length && rules.every((rule) => rule(dynamoStreamItem));
 };
 
 const matchedStreamItemRules = (

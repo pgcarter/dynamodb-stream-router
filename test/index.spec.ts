@@ -135,15 +135,26 @@ describe("dynamo stream message router", () => {
       assert.lengthOf(result, 0, "expected no handler for failing route rule");
     });
     it("2 filters and 1 filter does not match with one handler", () => {
+      let matchingRouteRuleCalled = false;
+      const matchingNeverCalledRouteRule: StreamRouterRuleFn<TestItem> = (
+        _dynamoItem: DynamoStreamItem<TestItem>
+      ) => {
+        matchingRouteRuleCalled = true;
+        return true;
+      };
       const routeHandlers: DynamoMessageRouteHandler<TestItem> = {
         messageHandlers: [expectedRouteHandler],
-        rules: [matchingRouteRule, nonMatchingRouteRule],
+        rules: [nonMatchingRouteRule, matchingNeverCalledRouteRule],
       };
 
       const result = matchedStreamHandlers([routeHandlers])(
         cartCreatedEvent.Records
       );
       assert.lengthOf(result, 0, "expected no handler for failing route rule");
+      assert.isFalse(
+        matchingRouteRuleCalled,
+        "expected failed match to short circuit matching check."
+      );
     });
     it("empty filter does not match with one handler", () => {
       const routeHandlers: DynamoMessageRouteHandler<TestItem> = {
