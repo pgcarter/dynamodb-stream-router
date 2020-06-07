@@ -1,5 +1,5 @@
-import { DynamoDBRecord } from "aws-lambda";
-import AWS from "aws-sdk";
+import { DynamoDBRecord, StreamRecord } from "aws-lambda";
+import AWS, { DynamoDB } from "aws-sdk";
 
 ///////////////////////////////
 ///// Defined Types
@@ -30,7 +30,7 @@ export interface DynamoStreamItem<T> {
 export enum StreamEventName {
   INSERT = "INSERT",
   MODIFY = "MODIFY",
-  REMOVE = "REMOVE"
+  REMOVE = "REMOVE",
 }
 
 export interface MatchedStreamHandler<T> {
@@ -43,7 +43,7 @@ const matchedRulesPredicate = (dynamoStreamItem: DynamoStreamItem<unknown>) => (
 ): boolean => {
   return (
     !!rules.length &&
-    rules.find(rule => rule(dynamoStreamItem) === false) === undefined
+    rules.find((rule) => !rule(dynamoStreamItem)) === undefined
   );
 };
 
@@ -63,7 +63,7 @@ const matchedStreamItemRules = (
         if (ruleMatchesStreamItem(routeHandler.rules)) {
           matchedRouteItems.push({
             dynamoStreamItem,
-            handlers: routeHandler.messageHandlers
+            handlers: routeHandler.messageHandlers,
           });
         }
         return matchedRouteItems;
@@ -77,14 +77,26 @@ const matchedStreamItemRules = (
 const convertDynamoRecord = <T>(
   dynamoRecord: DynamoDBRecord
 ): DynamoStreamItem<T> => {
-  const dynamoRecordParse = AWS.DynamoDB.Converter.output;
   return {
-    newRec: dynamoRecordParse({ M: dynamoRecord.dynamodb.NewImage }),
-    oldRec: dynamoRecordParse({ M: dynamoRecord.dynamodb.OldImage }),
-    streamEventName: dynamoRecord.eventName as StreamEventName
+    newRec: unmarshalDbRecord(
+      dynamoRecord,
+      (dbRec) => dbRec.NewImage as DynamoDB.AttributeMap
+    ),
+    oldRec: unmarshalDbRecord(
+      dynamoRecord,
+      (dbRec) => dbRec.OldImage as DynamoDB.AttributeMap
+    ),
+    streamEventName: dynamoRecord.eventName as StreamEventName,
   };
 };
-
+const unmarshalDbRecord = <T>(
+  dynamoRecord: DynamoDBRecord,
+  dbRecFn: (rec: StreamRecord) => DynamoDB.AttributeMap
+): T => {
+  return (dynamoRecord.dynamodb && dbRecFn(dynamoRecord.dynamodb)
+    ? AWS.DynamoDB.Converter.unmarshall(dbRecFn(dynamoRecord.dynamodb))
+    : {}) as T;
+};
 export const matchedStreamHandlers = (
   routeHandlers: DynamoMessageRouteHandler<unknown>[]
 ): DynamoStreamRouterFn => (
